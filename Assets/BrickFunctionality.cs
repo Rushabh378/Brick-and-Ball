@@ -17,6 +17,17 @@ public class BrickFunctionality : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (defence <= 0)
+            Destroy(this.gameObject);
+
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ball"))
+        {
+            defence--;
+            defText.text = defence.ToString();
+        }
+            
     }
 }

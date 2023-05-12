@@ -7,6 +7,8 @@ public class BallThrower : MonoBehaviour
     public GameObject Ball;
     public int force = 1;
 
+    public GameObject firePoint;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -16,25 +18,29 @@ public class BallThrower : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        setDirection();
-        shootBalls();
+        //getting mouse position
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        // setting direction
+        takeAimAt(mousePos);
+        //shooting balls
+        shootBallsAt(mousePos);
     }
 
-    void setDirection()
+    void takeAimAt(Vector3 mousePos)
     {
         if (Input.GetButton("Fire1"))
         {
-            transform.LookAt(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+            transform.LookAt(mousePos,Vector3.forward);
         }
     }
 
-    void shootBalls()
+    void shootBallsAt(Vector3 mousePos)
     {
         if (Input.GetButtonDown("Fire2"))
         {
-            GameObject ballInstance = Instantiate(Ball);
-            ballInstance.transform.position = transform.position;
-            ballInstance.GetComponent<Rigidbody2D>().velocity = Vector2.up * force;
+            GameObject ballInstance = Instantiate(Ball, transform.position, Quaternion.identity);
+            ballInstance.GetComponent<Rigidbody2D>().AddForce(mousePos, ForceMode2D.Impulse);
         }
     }
 }
