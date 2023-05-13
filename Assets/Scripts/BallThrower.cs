@@ -5,9 +5,7 @@ using UnityEngine;
 public class BallThrower : MonoBehaviour
 {
     public GameObject Ball;
-    public int force = 1;
-
-    public GameObject firePoint;
+    public int force = 5;
 
     // Start is called before the first frame update
     void Start()
@@ -40,7 +38,7 @@ public class BallThrower : MonoBehaviour
         if (Input.GetButtonDown("Fire2"))
         {
             GameObject ballInstance = Instantiate(Ball, transform.position, Quaternion.identity);
-            ballInstance.GetComponent<Rigidbody2D>().AddForce(mousePos, ForceMode2D.Impulse);
+            ballInstance.GetComponent<Rigidbody2D>().AddForce(mousePos.normalized * force, ForceMode2D.Impulse);
         }
     }
 }
