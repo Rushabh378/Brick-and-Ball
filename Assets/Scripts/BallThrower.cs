@@ -5,7 +5,10 @@ using UnityEngine;
 public class BallThrower : MonoBehaviour
 {
     public GameObject Ball;
-    public int force = 5;
+    //ball throwing force
+    public int force = 50;
+    //is player aiming the canon
+    bool isAiming = false;
 
     // Start is called before the first frame update
     void Start()
@@ -19,26 +22,20 @@ public class BallThrower : MonoBehaviour
         //getting mouse position
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        // setting direction
-        takeAimAt(mousePos);
-        //shooting balls
-        shootBallsAt(mousePos);
-    }
-
-    void takeAimAt(Vector3 mousePos)
-    {
-        if (Input.GetButton("Fire1"))
+        if (Input.GetMouseButton(0))
         {
-            transform.LookAt(mousePos,Vector3.forward);
+            //taking aim
+            isAiming = true;
+            transform.LookAt(mousePos, Vector3.forward);
         }
-    }
-
-    void shootBallsAt(Vector3 mousePos)
-    {
-        if (Input.GetButtonDown("Fire2"))
+            
+        if (Input.GetMouseButtonUp(0) && isAiming)
         {
+            isAiming = false;
+
+            //shooting ball towards mouse direction
             GameObject ballInstance = Instantiate(Ball, transform.position, Quaternion.identity);
             ballInstance.GetComponent<Rigidbody2D>().AddForce(mousePos.normalized * force, ForceMode2D.Impulse);
-        }
+        }  
     }
 }
