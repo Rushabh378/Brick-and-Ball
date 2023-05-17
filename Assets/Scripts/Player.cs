@@ -7,6 +7,8 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject ball;
     [SerializeField] private int force = 50;
     [SerializeField][Range(0, 100)] private int ballValue = 20;
+    [SerializeField] private GameObject mainMenu;
+    [SerializeField] private GameObject pauseMenu;
     private bool shooting = false;
     private bool isAiming = false;
     private void Update()
@@ -15,7 +17,10 @@ public class Player : MonoBehaviour
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector3 direction = mousePos - transform.position;
 
-        AimingAt(direction);
+        if(mainMenu.activeSelf == false && pauseMenu.activeSelf == false)
+        {
+            AimingAt(direction);
+        }
         if(shooting == false)
         {
             StartCoroutine(ShootingAt(direction));

@@ -15,7 +15,7 @@ public class BrickFunctionality : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         //if brick collided with Ball
-        if (collision.gameObject.GetComponent<CircleCollider2D>() == true)
+        if (collision.gameObject.GetComponent<CircleCollider2D>() != null)
         {
             Defence--;
             DefenceText.text = Defence.ToString();
