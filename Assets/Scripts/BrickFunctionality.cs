@@ -2,13 +2,13 @@ using UnityEngine;
 using TMPro;
 public class BrickFunctionality : MonoBehaviour
 {
-    [SerializeField]
     private TextMeshPro DefenceText;
     [SerializeField][Range(0, 100)]
     private int Defence = 10;
 
     private void Start()
     {
+        DefenceText = GetComponentInChildren<TextMeshPro>();
         DefenceText.text = Defence.ToString();
     }
 
