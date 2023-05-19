@@ -1,6 +1,6 @@
 using UnityEngine;
 using TMPro;
-public class BrickFunctionality : MonoBehaviour
+public class BrickFunctionality : BrickWallGenerator
 {
     private TextMeshPro DefenceText;
     [SerializeField][Range(0, 100)]
@@ -21,8 +21,13 @@ public class BrickFunctionality : MonoBehaviour
             DefenceText.text = Defence.ToString();
 
             if (Defence <= 0)
+            {
                 Destroy(this.gameObject);
+            }
         }
-            
+    }
+    private void OnDestroy()
+    {
+        BrickWallGenerator.bricksValue--;
     }
 }
